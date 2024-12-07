@@ -11,9 +11,10 @@ export async function uploadFileToWalrus(inputFile: any) {
     body: inputFile,
   }).then(async response => {
     if (response.status === 200) {
-      const info = await response.json();
-      console.log(info);
-      return info;
+      const result = await response.json();
+      if (result?.newlyCreated) return result?.newlyCreated?.blobObject?.blobId;
+      else if (result.alreadyCertified) return result.alreadyCertified.blobId;
+      else return null;
     } else {
       throw new Error("Something went wrong when storing the blob!");
     }
