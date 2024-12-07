@@ -2,7 +2,7 @@
 
 // import { useCallback, useEffect } from "react";
 import { useEffect } from "react";
-import RegisterButton from "./_components/RegisterButton";
+//import RegisterButton from "./_components/RegisterButton";
 import Anon from "./anonaadhar/anon";
 import { useAnonAadhaar, useProver } from "@anon-aadhaar/react";
 // import { Identity } from "@semaphore-protocol/identity";
@@ -66,9 +66,9 @@ const Home: NextPage = () => {
                 >
                   Create Identity
                 </button> */}
-              <span>
+              {/* <span>
                 <RegisterButton />
-              </span>
+              </span> */}
               <Anon />
             </div>
           </div>

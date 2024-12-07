@@ -7,7 +7,7 @@ import { GenericContractsDeclaration } from "../utils/scaffold-eth/contract";
 const deployedContracts = {
   31337: {
     ConstantInitialVoiceCreditProxy: {
-      address: "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+      address: "0x6C2d83262fF84cBaDb3e416D527403135D757892",
       abi: [
         {
           inputs: [
@@ -45,10 +45,10 @@ const deployedContracts = {
           type: "function",
         },
       ],
-      deploymentBlockNumber: 1,
+      deploymentBlockNumber: 265,
     },
     FreeForAllGatekeeper: {
-      address: "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+      address: "0xFD6F7A6a5c21A3f503EBaE7a473639974379c351",
       abi: [
         {
           inputs: [],
@@ -100,10 +100,10 @@ const deployedContracts = {
           type: "function",
         },
       ],
-      deploymentBlockNumber: 3,
+      deploymentBlockNumber: 267,
     },
     MACIWrapper: {
-      address: "0x610178dA211FEF7D417bC0e6FeD39F05609AD788",
+      address: "0xefc1aB2475ACb7E60499Efb171D173be19928a05",
       abi: [
         {
           inputs: [
@@ -1513,10 +1513,10 @@ const deployedContracts = {
         stateTreeDepth: "maci-contracts/contracts/MACI.sol",
         tallyFactory: "maci-contracts/contracts/MACI.sol",
       },
-      deploymentBlockNumber: 21,
+      deploymentBlockNumber: 285,
     },
     MessageProcessorFactory: {
-      address: "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+      address: "0x986aaa537b8cc170761FDAC6aC4fc7F9d8a20A8C",
       abi: [
         {
           inputs: [],
@@ -1571,10 +1571,10 @@ const deployedContracts = {
           type: "function",
         },
       ],
-      deploymentBlockNumber: 17,
+      deploymentBlockNumber: 281,
     },
     PollFactory: {
-      address: "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+      address: "0x96F3Ce39Ad2BfDCf92C0F6E2C2CAbF83874660Fc",
       abi: [
         {
           inputs: [],
@@ -1668,10 +1668,10 @@ const deployedContracts = {
           type: "function",
         },
       ],
-      deploymentBlockNumber: 15,
+      deploymentBlockNumber: 279,
     },
     PoseidonT3: {
-      address: "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+      address: "0x5302E909d1e93e30F05B5D6Eea766363D14F9892",
       abi: [
         {
           inputs: [
@@ -1693,10 +1693,10 @@ const deployedContracts = {
           type: "function",
         },
       ],
-      deploymentBlockNumber: 7,
+      deploymentBlockNumber: 271,
     },
     PoseidonT4: {
-      address: "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
+      address: "0x0ed64d01D0B4B655E410EF1441dD677B695639E7",
       abi: [
         {
           inputs: [
@@ -1718,10 +1718,10 @@ const deployedContracts = {
           type: "function",
         },
       ],
-      deploymentBlockNumber: 9,
+      deploymentBlockNumber: 273,
     },
     PoseidonT5: {
-      address: "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
+      address: "0x4bf010f1b9beDA5450a8dD702ED602A104ff65EE",
       abi: [
         {
           inputs: [
@@ -1743,10 +1743,10 @@ const deployedContracts = {
           type: "function",
         },
       ],
-      deploymentBlockNumber: 11,
+      deploymentBlockNumber: 275,
     },
     PoseidonT6: {
-      address: "0x0165878A594ca255338adfa4d48449f69242Eb8F",
+      address: "0x40a42Baf86Fc821f972Ad2aC878729063CeEF403",
       abi: [
         {
           inputs: [
@@ -1768,10 +1768,10 @@ const deployedContracts = {
           type: "function",
         },
       ],
-      deploymentBlockNumber: 13,
+      deploymentBlockNumber: 277,
     },
     TallyFactory: {
-      address: "0x8A791620dd6260079BF849Dc5567aDC3F2FdC318",
+      address: "0xde2Bd2ffEA002b8E84ADeA96e5976aF664115E2c",
       abi: [
         {
           inputs: [],
@@ -1831,10 +1831,10 @@ const deployedContracts = {
           type: "function",
         },
       ],
-      deploymentBlockNumber: 19,
+      deploymentBlockNumber: 283,
     },
     Verifier: {
-      address: "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+      address: "0xa6e99A4ED7498b3cdDCBB61a6A607a4925Faa1B7",
       abi: [
         {
           inputs: [],
@@ -1991,10 +1991,10 @@ const deployedContracts = {
           type: "function",
         },
       ],
-      deploymentBlockNumber: 5,
+      deploymentBlockNumber: 269,
     },
     VkRegistry: {
-      address: "0xA51c1fc2f0D1a1b8494Ed1FE312d7C3a78Ed91C0",
+      address: "0xD49a0e9A4CD5979aE36840f542D2d7f02C4817Be",
       abi: [
         {
           inputs: [],
@@ -3254,7 +3254,7 @@ const deployedContracts = {
           type: "function",
         },
       ],
-      deploymentBlockNumber: 24,
+      deploymentBlockNumber: 288,
     },
   },
 } as const;

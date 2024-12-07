@@ -19,6 +19,7 @@
     "hardhat": "hardhat"
   },
   "dependencies": {
+    "@anon-aadhaar/contracts": "^2.4.2",
     "@commander-js/extra-typings": "^12.0.1",
     "@nomicfoundation/hardhat-ignition-ethers": "^0.15.0",
     "@typechain/ethers-v6": "~0.5.1",
@@ -32,7 +33,7 @@
     "hardhat-artifactor": "^0.2.0",
     "maci-circuits": "2.3.0",
     "maci-cli": "2.3.0",
-    "maci-contracts": "2.3.0",
+    "maci-contracts": "2.5.0",
     "maci-core": "2.2.0",
     "maci-crypto": "2.2.0",
     "maci-domainobjs": "2.2.0",
