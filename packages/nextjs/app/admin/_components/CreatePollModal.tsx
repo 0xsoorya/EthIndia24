@@ -5,8 +5,7 @@ import { MdEdit } from "react-icons/md";
 import { RxCross2 } from "react-icons/rx";
 import Modal from "~~/components/Modal";
 import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
-import { PollType } from "~~/types/poll";
-import { EMode } from "~~/types/poll";
+import { EMode, PollType } from "~~/types/poll";
 import { notification } from "~~/utils/scaffold-eth";
 import { uploadFileToWalrus } from "~~/utils/walrus";
 
@@ -40,7 +39,7 @@ export default function Example({
   });
   const [isEditingTitle, setIsEditingTitle] = useState<boolean>(false);
   const [files, setFiles] = useState<FileState["files"]>([]); // Files array with File type
-
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const handlePollTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setPollData({ ...pollData, pollType: parseInt(e.target.value) });
   };
@@ -92,7 +91,27 @@ export default function Example({
     ],
   });
 
-  const handleFileUpload = async () => {
+  // const handleFileUpload = async () => {
+  //   setIsLoading(true);
+  //   console.log("Uploading images");
+  //   const pollOptions: string[] = [];
+  //   for (const file of files) {
+  //     try {
+  //       const result = await uploadFileToWalrus(file);
+  //       if (result) pollOptions.push(result as string);
+  //     } catch (error) {
+  //       console.error("Error uploading file:", error);
+  //     }
+  //   }
+  //   setPollData(prevState => ({
+  //     ...prevState,
+  //     options: pollOptions,
+  //   }));
+  //   notification.success("Upload completed");
+  // };
+
+  async function onSubmit() {
+    setIsLoading(true);
     console.log("Uploading images");
     const pollOptions: string[] = [];
     for (const file of files) {
@@ -100,6 +119,7 @@ export default function Example({
         const result = await uploadFileToWalrus(file);
         if (result) pollOptions.push(result as string);
       } catch (error) {
+        setIsLoading(false);
         console.error("Error uploading file:", error);
       }
     }
@@ -108,23 +128,23 @@ export default function Example({
       options: pollOptions,
     }));
     notification.success("Upload completed");
-  };
-
-  async function onSubmit() {
     // validate the inputs
-    if (pollData.options.length == 0) {
+    if (pollOptions.length == 0) {
       notification.error("Option cannot be blank", { showCloseButton: false });
+      setIsLoading(false);
       return;
     }
 
     if (duration < 60) {
       // TODO: throw error that the expiry cannot be before atleast 1 min of creation
       notification.error("Expiry cannot be before atleast 1 min of creation", { showCloseButton: false });
+      setIsLoading(false);
       return;
     }
 
     if (pollData.pollType === PollType.NOT_SELECTED) {
       notification.error("Please select a poll type", { showCloseButton: false });
+      setIsLoading(false);
       return;
     }
 
@@ -137,6 +157,7 @@ export default function Example({
       console.log(err);
     }
 
+    setIsLoading(false);
     setOpen(false);
   }
 
@@ -267,17 +288,20 @@ export default function Example({
         <button
           type="button"
           className="inline-flex w-full justify-center rounded-md bg-primary text-primary-content px-3 py-2 font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:col-start-2"
-          onClick={onSubmit}
+          onClick={async () => {
+            await onSubmit();
+          }}
+          disabled={isLoading}
         >
-          Create
+          {isLoading ? "Creating..." : "Create"}
         </button>
-        <button
+        {/* <button
           type="button"
           className="inline-flex w-full justify-center rounded-md bg-primary text-primary-content px-3 py-2 font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:col-start-2"
           onClick={handleFileUpload}
         >
           Upload Images
-        </button>
+        </button> */}
         <button
           type="button"
           className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1 sm:mt-0"

@@ -1,26 +1,14 @@
 "use client";
 
 // import { useCallback, useEffect } from "react";
-import { useEffect } from "react";
 //import RegisterButton from "./_components/RegisterButton";
 import Anon from "./anonaadhar/anon";
-import { useAnonAadhaar, useProver } from "@anon-aadhaar/react";
 // import { Identity } from "@semaphore-protocol/identity";
 import type { NextPage } from "next";
 import { useAuthUserOnly } from "~~/hooks/useAuthUserOnly";
 
 const Home: NextPage = () => {
   useAuthUserOnly({ inverted: true });
-  const [, latestProof] = useProver();
-  const [anonAadhaar] = useAnonAadhaar();
-
-  useEffect(() => {
-    // if (anonAadhaar.status === "logged-in") {
-    console.log(anonAadhaar.status);
-    if (latestProof) {
-      console.log(latestProof);
-    }
-  }, [anonAadhaar, latestProof]);
   // useEffect(() => {
   //   const privateKey = localStorage.getItem("identity");
 

@@ -15,18 +15,27 @@ const BlockExplorer: NextPage = () => {
   const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
+    console.log("Netwrok not equal", targetNetwork.id, hardhat.id);
     if (targetNetwork.id !== hardhat.id) {
       setIsLocalNetwork(false);
     }
   }, [targetNetwork.id]);
 
   useEffect(() => {
+    console.log("error", error);
     if (targetNetwork.id === hardhat.id && error) {
       setHasError(true);
     }
   }, [targetNetwork.id, error]);
 
   useEffect(() => {
+    console.log(
+      "isLocalNetwork",
+      isLocalNetwork,
+      targetNetwork.blockExplorers?.default.name,
+      targetNetwork.blockExplorers?.default.url,
+      targetNetwork.name,
+    );
     if (!isLocalNetwork) {
       notification.error(
         <>

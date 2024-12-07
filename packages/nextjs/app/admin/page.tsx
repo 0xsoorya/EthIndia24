@@ -30,7 +30,7 @@ export default function AdminPage() {
   }, [address, admin]);
 
   return (
-    <div className="container mx-auto pt-10">
+    <div className="container mx-auto p-10">
       <div className="flex">
         <div className="flex-1 text-2xl">Polls</div>
         <button
@@ -86,7 +86,7 @@ export default function AdminPage() {
           )}
         </>
       ) : (
-        <div>No polls found</div>
+        <div className="mt-7 mb-4">No polls found</div>
       )}
 
       <CreatePollModal refetchPolls={refetchPolls} show={openCreatePollModal} setOpen={setOpenCreatePollModal} />

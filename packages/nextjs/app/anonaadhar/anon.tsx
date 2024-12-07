@@ -13,10 +13,11 @@ import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 // };
 
 export default function Anon() {
-  // Use the Country Identity hook to get the status of the user.
   const [anonAadhaar] = useAnonAadhaar();
   const { keypair } = useAuthContext();
   const [, latestProof] = useProver();
+  // Use the Country Identity hook to get the status of the user.
+  console.log("anon", anonAadhaar, latestProof);
   const { writeAsync } = useScaffoldContractWrite({
     contractName: "MACIWrapper",
     functionName: "signUp",
