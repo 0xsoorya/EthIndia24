@@ -1,9 +1,9 @@
 "use client";
 
-import { useCallback, useEffect } from "react";
+// import { useCallback, useEffect } from "react";
 import Image from "next/image";
 import RegisterButton from "./_components/RegisterButton";
-import { Identity } from "@semaphore-protocol/identity";
+// import { Identity } from "@semaphore-protocol/identity";
 import type { NextPage } from "next";
 import HeroImage from "~~/assets/private_voting.png";
 import { useAuthUserOnly } from "~~/hooks/useAuthUserOnly";
@@ -11,25 +11,25 @@ import { useAuthUserOnly } from "~~/hooks/useAuthUserOnly";
 const Home: NextPage = () => {
   useAuthUserOnly({ inverted: true });
 
-  useEffect(() => {
-    const privateKey = localStorage.getItem("identity");
+  // useEffect(() => {
+  //   const privateKey = localStorage.getItem("identity");
 
-    if (privateKey) {
-      const identity = Identity.import(privateKey);
+  //   if (privateKey) {
+  //     const identity = Identity.import(privateKey);
 
-      console.log("Your Semaphore identity has been retrieved from the browser cache 👌🏽");
-    } else {
-      console.log("Create your Semaphore identity 👆🏽");
-    }
-  });
+  //     console.log("Your Semaphore identity has been retrieved from the browser cache 👌🏽");
+  //   } else {
+  //     console.log("Create your Semaphore identity 👆🏽");
+  //   }
+  // });
 
-  const createIdentity = useCallback(async () => {
-    const identity = new Identity();
+  // const createIdentity = useCallback(async () => {
+  //   const identity = new Identity();
 
-    localStorage.setItem("identity", identity.export());
+  //   localStorage.setItem("identity", identity.export());
 
-    console.log("Your new Semaphore identity has just been created 🎉");
-  });
+  //   console.log("Your new Semaphore identity has just been created 🎉");
+  // });
 
   return (
     <>
@@ -44,13 +44,13 @@ const Home: NextPage = () => {
                 Anti-Collusion Infrastructure (MACI).
               </p>
               <div className="text-center">
-                <button
+                {/* <button
                   className="border border-slate-600 bg-primary px-3 py-2 rounded-lg font-bold"
                   onClick={createIdentity}
                 >
                   Create Identity
-                </button>
-                {/* <RegisterButton /> */}
+                </button> */}
+                <RegisterButton />
               </div>
             </div>
             <div className="flex-1">

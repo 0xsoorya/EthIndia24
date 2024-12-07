@@ -8,6 +8,19 @@ import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 import { PollType } from "~~/types/poll";
 import { EMode } from "~~/types/poll";
 import { notification } from "~~/utils/scaffold-eth";
+import { uploadFileToWalrus } from "~~/utils/walrus";
+
+interface FileState {
+  files: (File | null)[];
+}
+
+interface PollData {
+  title: string;
+  expiry: Date;
+  pollType: PollType;
+  mode: EMode;
+  options: string[]; // This will store the file IDs or options as strings
+}
 
 export default function Example({
   show,
@@ -18,27 +31,18 @@ export default function Example({
   setOpen: (value: boolean) => void;
   refetchPolls: () => void;
 }) {
-  const [pollData, setPollData] = useState({
+  const [pollData, setPollData] = useState<PollData>({
     title: "Dummy Title",
     expiry: new Date(),
     pollType: PollType.NOT_SELECTED,
     mode: EMode.QV,
-    options: [""],
+    options: [],
   });
   const [isEditingTitle, setIsEditingTitle] = useState<boolean>(false);
-
-  const handleAddOption = () => {
-    setPollData({ ...pollData, options: [...pollData.options, ""] });
-  };
+  const [files, setFiles] = useState<FileState["files"]>([]); // Files array with File type
 
   const handlePollTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setPollData({ ...pollData, pollType: parseInt(e.target.value) });
-  };
-
-  const handleOptionChange = (index: number, value: string) => {
-    const newOptions = [...pollData.options];
-    newOptions[index] = value;
-    setPollData({ ...pollData, options: newOptions });
   };
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -57,11 +61,22 @@ export default function Example({
     setIsEditingTitle(false);
   };
 
-  function removeOptions(index: number): void {
-    const newOptions = [...pollData.options];
-    newOptions.splice(index, 1);
-    setPollData({ ...pollData, options: newOptions });
-  }
+  // Add a new null entry for a new file
+  const handleAddOption = () => {
+    setFiles(prev => [...prev, null]);
+  };
+
+  // Remove the file at the given index
+  const removeOption = (index: number) => {
+    setFiles(prev => prev.filter((_, i) => i !== index));
+  };
+
+  // Handle file change, update the state with the selected file
+  const handleFileChange = (index: number, file: File | null) => {
+    const updatedFiles = [...files];
+    updatedFiles[index] = file;
+    setFiles(updatedFiles);
+  };
 
   const duration = Math.round((pollData.expiry.getTime() - new Date().getTime()) / 1000);
 
@@ -77,14 +92,31 @@ export default function Example({
     ],
   });
 
+  const handleFileUpload = async () => {
+    console.log("Uploading images");
+    const pollOptions: string[] = [];
+    for (const file of files) {
+      try {
+        const result = await uploadFileToWalrus(file);
+        if (result?.newlyCreated?.blobObject?.id) {
+          pollOptions.push(result.newlyCreated.blobObject.id as string);
+        }
+      } catch (error) {
+        console.error("Error uploading file:", error);
+      }
+    }
+    setPollData(prevState => ({
+      ...prevState,
+      options: pollOptions,
+    }));
+    notification.success("Upload completed");
+  };
+
   async function onSubmit() {
     // validate the inputs
-    for (const option of pollData.options) {
-      if (!option) {
-        // TODO: throw error that the option cannot be blank
-        notification.error("Option cannot be blank", { showCloseButton: false });
-        return;
-      }
+    if (pollData.options.length == 0) {
+      notification.error("Option cannot be blank", { showCloseButton: false });
+      return;
     }
 
     if (duration < 60) {
@@ -192,16 +224,22 @@ export default function Example({
 
       <div className="mb-3 text-neutral-content">Create the options</div>
 
-      {pollData.options.map((option, index) => (
-        <div key={index} className="mb-2 flex flex-row">
+      {files.map((file, index) => (
+        <div key={index} className="mb-2 flex flex-row items-center">
           <input
-            type="text"
-            className="border border-[#3647A4] bg-secondary text-neutral rounded-md px-4 py-2 w-full focus:outline-none "
-            placeholder={`Candidate ${index + 1}`}
-            value={option}
-            onChange={e => handleOptionChange(index, e.target.value)}
+            type="file"
+            onChange={e => handleFileChange(index, e.target.files ? e.target.files[0] : null)}
+            accept="image/*"
+            className="mr-4"
           />
-          {index === pollData.options.length - 1 ? (
+          {file && (
+            <img
+              src={URL.createObjectURL(file)}
+              alt={`Selected option ${index + 1}`}
+              className="w-16 h-16 object-cover mr-4"
+            />
+          )}
+          {index === files.length - 1 ? (
             <button
               className="btn btn-outline ml-4 text-primary hover:bg-primary hover:text-primary-content bg-primary-content"
               onClick={handleAddOption}
@@ -211,13 +249,21 @@ export default function Example({
           ) : (
             <button
               className="btn btn-outline ml-4 text-primary hover:bg-primary hover:text-primary-content bg-primary-content"
-              onClick={() => removeOptions(index)}
+              onClick={() => removeOption(index)}
             >
               <RxCross2 size={20} />
             </button>
           )}
         </div>
       ))}
+      {files.length === 0 && (
+        <button
+          className="btn btn-outline mt-2 text-primary hover:bg-primary hover:text-primary-content bg-primary-content"
+          onClick={handleAddOption}
+        >
+          Add Option
+        </button>
+      )}
 
       <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
         <button
@@ -226,6 +272,13 @@ export default function Example({
           onClick={onSubmit}
         >
           Create
+        </button>
+        <button
+          type="button"
+          className="inline-flex w-full justify-center rounded-md bg-primary text-primary-content px-3 py-2 font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:col-start-2"
+          onClick={handleFileUpload}
+        >
+          Upload Images
         </button>
         <button
           type="button"
