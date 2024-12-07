@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import { PollType } from "~~/types/poll";
+import { getFileFromWalrus } from "~~/utils/walrus";
 
 type VoteCardProps = {
   index: number;
@@ -71,7 +72,7 @@ const VoteCard = ({
         <div className={!pollOpen ? "ml-2" : ""}>
           <img
             className="p-1 w-full h-full object-contain rounded-lg"
-            src={`https://aggregator.walrus-testnet.walrus.space/v1/${candidate}`}
+            src={getFileFromWalrus(candidate)}
             alt="Blob image"
             width={200}
             height={200}

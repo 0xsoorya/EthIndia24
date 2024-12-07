@@ -1,5 +1,3 @@
-import axios from "axios";
-
 const AGGREGATOR = "https://aggregator.walrus-testnet.walrus.space";
 const PUBLISHER = "https://publisher.walrus-testnet.walrus.space";
 
@@ -21,8 +19,6 @@ export async function uploadFileToWalrus(inputFile: any) {
   });
 }
 
-export async function getFileFromWalrus(blobId: string) {
-  const url = `${AGGREGATOR}/v1/${blobId}`;
-  const { data } = await axios.get(url);
-  return data;
+export function getFileFromWalrus(blobId: string) {
+  return `${AGGREGATOR}/v1/${blobId}`;
 }
