@@ -3,19 +3,21 @@ import axios from "axios";
 const AGGREGATOR = "https://aggregator.walrus-testnet.walrus.space";
 const PUBLISHER = "https://publisher.walrus-testnet.walrus.space";
 
-export async function uploadFileToWalrus(file: any) {
+export async function uploadFileToWalrus(inputFile: any) {
   const url = `${PUBLISHER}/v1/store?epochs=5`;
 
-  const formData = new FormData();
-  formData.append("file", file);
-
-  const { data } = await axios.put(url, formData, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
+  return fetch(url, {
+    method: "PUT",
+    body: inputFile,
+  }).then(async response => {
+    if (response.status === 200) {
+      const info = await response.json();
+      console.log(info);
+      return info;
+    } else {
+      throw new Error("Something went wrong when storing the blob!");
+    }
   });
-
-  return data;
 }
 
 export async function getFileFromWalrus(blobId: string) {

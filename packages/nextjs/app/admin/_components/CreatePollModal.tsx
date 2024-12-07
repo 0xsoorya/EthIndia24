@@ -99,7 +99,7 @@ export default function Example({
       try {
         const result = await uploadFileToWalrus(file);
         if (result?.newlyCreated?.blobObject?.id) {
-          pollOptions.push(result.newlyCreated.blobObject.id as string);
+          pollOptions.push(result.newlyCreated.blobObject.blobId as string);
         }
       } catch (error) {
         console.error("Error uploading file:", error);

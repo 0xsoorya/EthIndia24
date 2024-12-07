@@ -68,7 +68,18 @@ const VoteCard = ({
           />
         )}
 
-        <div className={!pollOpen ? "ml-2" : ""}>{candidate}</div>
+        <div className={!pollOpen ? "ml-2" : ""}>
+          <img
+            className="p-1 w-full h-full object-contain rounded-lg"
+            src={`https://aggregator.walrus-testnet.walrus.space/v1/${candidate}`}
+            alt="Blob image"
+            width={200}
+            height={200}
+            onError={() => {
+              console.log("Blob not found. Please try a valid blob id.");
+            }}
+          />
+        </div>
       </div>
 
       {pollOpen && pollType === PollType.WEIGHTED_MULTIPLE_VOTE && (
