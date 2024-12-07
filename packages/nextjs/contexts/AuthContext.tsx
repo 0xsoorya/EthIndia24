@@ -1,6 +1,8 @@
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
+import { AnonAadhaarCore } from "@anon-aadhaar/core";
+import { useProver } from "@anon-aadhaar/react";
 import { Keypair, PrivKey } from "maci-domainobjs";
 import { useAccount, useSignMessage } from "wagmi";
 import deployedContracts from "~~/contracts/deployedContracts";
@@ -12,6 +14,8 @@ interface IAuthContext {
   keypair: Keypair | null;
   stateIndex: bigint | null;
   generateKeypair: () => void;
+  anonAadhaarProof: AnonAadhaarCore | undefined;
+  // anonAadhaarProofVerified: boolean;
 }
 
 export const AuthContext = createContext<IAuthContext>({} as IAuthContext);
@@ -21,7 +25,7 @@ export default function AuthContextProvider({ children }: { children: React.Reac
   const [keypair, setKeyPair] = useState<Keypair | null>(null);
   const [stateIndex, setStateIndex] = useState<bigint | null>(null);
   const [signatureMessage, setSignatureMessage] = useState<string>("");
-
+  const [, latestProof] = useProver();
   const { signMessageAsync } = useSignMessage({ message: signatureMessage });
 
   useEffect(() => {
@@ -103,7 +107,15 @@ export default function AuthContextProvider({ children }: { children: React.Reac
   });
 
   return (
-    <AuthContext.Provider value={{ isRegistered: Boolean(isRegistered), keypair, stateIndex, generateKeypair }}>
+    <AuthContext.Provider
+      value={{
+        isRegistered: Boolean(isRegistered),
+        keypair,
+        stateIndex,
+        generateKeypair,
+        anonAadhaarProof: latestProof,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

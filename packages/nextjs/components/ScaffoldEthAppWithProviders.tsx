@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { AnonAadhaarProvider } from "@anon-aadhaar/react";
 import { RainbowKitProvider, darkTheme, lightTheme } from "@rainbow-me/rainbowkit";
 import { useTheme } from "next-themes";
 import { Toaster } from "react-hot-toast";
@@ -54,9 +55,11 @@ export const ScaffoldEthAppWithProviders = ({ children }: { children: React.Reac
         avatar={BlockieAvatar}
         theme={mounted ? (isDarkMode ? darkTheme() : lightTheme()) : lightTheme()}
       >
-        <AuthContextProvider>
-          <ScaffoldEthApp>{children}</ScaffoldEthApp>
-        </AuthContextProvider>
+        <AnonAadhaarProvider _useTestAadhaar={true}>
+          <AuthContextProvider>
+            <ScaffoldEthApp>{children}</ScaffoldEthApp>
+          </AuthContextProvider>
+        </AnonAadhaarProvider>
       </RainbowKitProvider>
     </WagmiConfig>
   );

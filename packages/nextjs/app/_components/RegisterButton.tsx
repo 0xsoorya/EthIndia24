@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-import { Identity } from "@semaphore-protocol/identity";
 import { useAuthContext } from "~~/contexts/AuthContext";
 import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 
@@ -16,7 +14,6 @@ export default function RegisterButton() {
     if (!keypair) return;
 
     try {
-      const { privateKey, publicKey, commitment } = new Identity();
       await writeAsync({ args: [keypair.pubKey.asContractParam() as { x: bigint; y: bigint }, "0x", "0x"] });
     } catch (err) {
       console.log(err);

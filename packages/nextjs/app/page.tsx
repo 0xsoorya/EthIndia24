@@ -1,8 +1,11 @@
 "use client";
 
 // import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 import Image from "next/image";
 import RegisterButton from "./_components/RegisterButton";
+import Anon from "./anonaadhar/anon";
+import { useAnonAadhaar, useProver } from "@anon-aadhaar/react";
 // import { Identity } from "@semaphore-protocol/identity";
 import type { NextPage } from "next";
 import HeroImage from "~~/assets/private_voting.png";
@@ -10,7 +13,16 @@ import { useAuthUserOnly } from "~~/hooks/useAuthUserOnly";
 
 const Home: NextPage = () => {
   useAuthUserOnly({ inverted: true });
+  const [, latestProof] = useProver();
+  const [anonAadhaar] = useAnonAadhaar();
 
+  useEffect(() => {
+    // if (anonAadhaar.status === "logged-in") {
+    console.log(anonAadhaar.status);
+    if (latestProof) {
+      console.log(latestProof);
+    }
+  }, [anonAadhaar, latestProof]);
   // useEffect(() => {
   //   const privateKey = localStorage.getItem("identity");
 
@@ -43,14 +55,17 @@ const Home: NextPage = () => {
                 This starter kit is designed to help you get started with private voting using the Minimal
                 Anti-Collusion Infrastructure (MACI).
               </p>
-              <div className="text-center">
+              <div className="text-center flex justify-center gap-2">
                 {/* <button
                   className="border border-slate-600 bg-primary px-3 py-2 rounded-lg font-bold"
                   onClick={createIdentity}
                 >
                   Create Identity
                 </button> */}
-                <RegisterButton />
+                <span>
+                  <RegisterButton />
+                </span>
+                <Anon />
               </div>
             </div>
             <div className="flex-1">
