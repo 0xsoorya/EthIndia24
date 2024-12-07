@@ -8,17 +8,9 @@ import HoverBorderCard from "~~/components/card/HoverBorderCard";
 import { useAuthUserOnly } from "~~/hooks/useAuthUserOnly";
 import { useFetchPolls } from "~~/hooks/useFetchPolls";
 import { useTotalPages } from "~~/hooks/useTotalPages";
+import { timeLeft } from "~~/utils/general";
 import { getFileFromWalrus } from "~~/utils/walrus";
 
-const timeLeft = (expiryDate: string) => {
-  const now = new Date();
-  const expiry = new Date(parseInt(expiryDate) * 1000);
-  const diff = expiry.getTime() - now.getTime();
-  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-  return `${days}d ${hours}h ${minutes}m`;
-};
 export default function Polls() {
   const [currentPage, setCurrentPage] = useState(1);
   const [limit] = useState(10);
@@ -39,43 +31,41 @@ export default function Polls() {
         polls.length !== 0 ? (
           <>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-              {polls
-                // .sort((a, b) => a.endTime - b.endTime)
-                .map(poll => (
-                  <HoverBorderCard key={poll.id} showArrow={true} click={() => router.push(`/polls/${poll.id}`)}>
-                    <div className="flex flex-col">
-                      {/* Poll Name and Status */}
-                      <div className="flex justify-between items-center w-full">
-                        <h1 className="text-lg font-bold">{poll.name}</h1>
-                        {poll.status === "Open" ? (
-                          <LuSmile className="text-green-600 text-xl" title="Open" />
-                        ) : (
-                          <LuFrown className="text-red-600 text-xl" title="Closed" />
-                        )}
-                      </div>
-
-                      {/* Candidates Count */}
-                      <h2 className="text-sm">{poll.options.length} Candidates</h2>
-
-                      {/* Expiry */}
-                      <p className="text-sm text-gray-500 mt-2">
-                        {poll.status === "Open" ? `Time Left: ${timeLeft(poll.endTime.toString())}` : "Poll Closed"}
-                      </p>
-
-                      {/* Candidates Images */}
-                      <div className="flex gap-2 mt-2">
-                        {poll.options.map(p => (
-                          <img
-                            src={getFileFromWalrus(p)}
-                            key={p}
-                            alt="Candidate"
-                            className="h-16 w-16 object-cover rounded-md"
-                          />
-                        ))}
-                      </div>
+              {polls.map(poll => (
+                <HoverBorderCard key={poll.id} showArrow={true} click={() => router.push(`/polls/${poll.id}`)}>
+                  <div className="flex flex-col">
+                    {/* Poll Name and Status */}
+                    <div className="flex ">
+                      <h1 className="text-lg font-bold">{poll.name}</h1>
+                      {poll.status === "Open" ? (
+                        <LuSmile className="text-green-600 text-xl" title="Open" />
+                      ) : (
+                        <LuFrown className="text-red-600 text-xl" title="Closed" />
+                      )}
                     </div>
-                  </HoverBorderCard>
-                ))}
+
+                    {/* Candidates Count */}
+                    <h2 className="text-sm">{poll.options.length} Candidates</h2>
+
+                    {/* Expiry */}
+                    <p className="text-sm text-gray-500 mt-1">
+                      {poll.status === "Open" ? `Time Left: ${timeLeft(poll.endTime.toString())}` : "Poll Closed"}
+                    </p>
+
+                    {/* Candidates Images */}
+                    <div className="flex gap-2">
+                      {poll.options.slice(0, 3).map(p => (
+                        <img
+                          src={getFileFromWalrus(p)}
+                          key={p}
+                          alt="Candidate"
+                          className="h-32 w-32 object-cover rounded-md"
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </HoverBorderCard>
+              ))}
             </div>
             {totalPages > 1 && (
               <Paginator currentPage={currentPage} totalPages={totalPages} setPageNumber={setCurrentPage} />

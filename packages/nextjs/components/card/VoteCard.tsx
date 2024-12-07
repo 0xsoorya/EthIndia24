@@ -30,11 +30,11 @@ const VoteCard = ({
 
   return (
     <>
-      <div className="bg-primary flex w-full px-2 py-2 rounded-lg">
+      <div className="bg-secondary flex items-center w-full px-4 py-2 rounded-lg">
         {pollOpen && (
           <input
             type={pollType === PollType.SINGLE_VOTE ? "radio" : "checkbox"}
-            className="mr-2"
+            className="mr-4"
             value={index}
             checked={selected}
             onChange={e => {
@@ -69,17 +69,17 @@ const VoteCard = ({
           />
         )}
 
-        <div className={!pollOpen ? "ml-2" : ""}>
-          <img
-            className="p-1 w-full h-full object-contain rounded-lg"
-            src={getFileFromWalrus(candidate)}
-            alt="Blob image"
-            width={200}
-            height={200}
-            onError={() => {
-              console.log("Blob not found. Please try a valid blob id.");
-            }}
-          />
+        <img
+          className="w-24 h-24 object-cover rounded-lg mr-4"
+          src={getFileFromWalrus(candidate)}
+          alt="Blob image"
+          onError={() => {
+            console.log("Blob not found. Please try a valid blob id.");
+          }}
+        />
+
+        <div className="flex-1">
+          <p className="text-primary-content">{candidate}</p>
         </div>
       </div>
 

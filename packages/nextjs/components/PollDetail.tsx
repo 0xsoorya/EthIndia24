@@ -10,8 +10,10 @@ import { useAuthContext } from "~~/contexts/AuthContext";
 import { useFetchPoll } from "~~/hooks/useFetchPoll";
 import { getPollStatus } from "~~/hooks/useFetchPolls";
 import { PollStatus, PollType } from "~~/types/poll";
+import { defaultImages, timeLeft } from "~~/utils/general";
 import { getDataFromPinata } from "~~/utils/pinata";
 import { notification } from "~~/utils/scaffold-eth";
+import { getFileFromWalrus } from "~~/utils/walrus";
 
 export default function PollDetail({ id }: { id: bigint }) {
   const { data: poll, error, isLoading } = useFetchPoll(id);
@@ -233,16 +235,26 @@ export default function PollDetail({ id }: { id: bigint }) {
         <div className="flex flex-row items-center my-5">
           <div className="text-2xl font-bold ">
             Vote for {poll?.name}
-            {status === PollStatus.CLOSED && " (Closed)"}
+            {status === PollStatus.CLOSED ? (
+              " (Closed)"
+            ) : (
+              <p className="text-sm text-gray-500 mt-1">Time Left: {timeLeft(poll?.endTime as unknown as string)}</p>
+            )}
           </div>
         </div>
         {voted ? (
           <div>
             <p className="font-bold">Voted:</p>
             <ul>
-              {votes.map(vote => (
-                <li key={vote.index} className="bg-primary flex w-full px-2 py-2 rounded-lg mb-2">
-                  {poll?.options[vote.index]}: {vote.votes} votes
+              {votes.map((vote, index) => (
+                <li key={vote.index} className="bg-primary flex w-full px-2 py-2 rounded-lg mb-2 gap-2">
+                  <img
+                    src={getFileFromWalrus(poll?.options[vote.index] || defaultImages[index])}
+                    height={48}
+                    width={48}
+                    alt="Candidate image"
+                  />
+                  {vote.votes} votes
                 </li>
               ))}
             </ul>
@@ -259,9 +271,10 @@ export default function PollDetail({ id }: { id: bigint }) {
           </div>
         ) : (
           <>
-            {poll?.options.map((candidate, index) => (
-              <div className="pb-5 flex" key={index}>
+            <div className="flex flex-wrap gap-4">
+              {poll?.options.map((candidate, index) => (
                 <VoteCard
+                  key={index}
                   pollOpen={status === PollStatus.OPEN}
                   index={index}
                   candidate={candidate}
@@ -272,8 +285,9 @@ export default function PollDetail({ id }: { id: bigint }) {
                   isInvalid={Boolean(isVotesInvalid[index])}
                   setIsInvalid={status => setIsVotesInvalid({ ...isVotesInvalid, [index]: status })}
                 />
-              </div>
-            ))}
+              ))}
+            </div>
+
             {status === PollStatus.OPEN && (
               <div className={`mt-2 shadow-2xl`}>
                 <button
