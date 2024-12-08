@@ -13,7 +13,7 @@ import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 
 export default function Anon() {
   const [anonAadhaar] = useAnonAadhaar();
-  const { keypair } = useAuthContext();
+  const { keypair, isRegistered } = useAuthContext();
   const [, latestProof] = useProver();
   // Use the Country Identity hook to get the status of the user.
   console.log("anon", anonAadhaar, latestProof);
@@ -46,7 +46,7 @@ export default function Anon() {
   //   console.log(anonAadhaar.status);
 
   // }, [latestProof]);
-
+  if (isRegistered) return <div>Thanks for Registration</div>;
   return (
     <div className="flex w-full justify-center items-center align-middle">
       {!latestProof ? (

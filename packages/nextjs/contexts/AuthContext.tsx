@@ -24,7 +24,7 @@ export default function AuthContextProvider({ children }: { children: React.Reac
   const { signMessageAsync } = useSignMessage({ message: signatureMessage });
 
   useEffect(() => {
-    setSignatureMessage(`Login to ${window.location.origin} ${address}`);
+    setSignatureMessage(`Login to ${window.location.origin}`);
   }, []);
 
   const generateKeypair = useCallback(() => {

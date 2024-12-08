@@ -151,7 +151,15 @@ export default function Example({
     // save the poll data to ipfs or find another way for saving the poll type on the smart contract.
 
     try {
-      await writeAsync();
+      await writeAsync({
+        args: [
+          pollData.title,
+          pollOptions || [],
+          JSON.stringify({ pollType: pollData.pollType }),
+          duration > 0 ? BigInt(duration) : 0n,
+          pollData.mode,
+        ],
+      });
       refetchPolls();
     } catch (err) {
       console.log(err);
