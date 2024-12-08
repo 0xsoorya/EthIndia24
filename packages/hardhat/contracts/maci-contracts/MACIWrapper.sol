@@ -111,6 +111,7 @@ contract MACIWrapper is MACI, Ownable(msg.sender) {
 			_signUpGatekeeperData,
 			_initialVoiceCreditProxyData
 		);
+		//signUpGatekeeper.register(msg.sender, _signUpGatekeeperData);
 
 		isPublicKeyRegistered[_pubKey.x][_pubKey.y] = true;
 	}

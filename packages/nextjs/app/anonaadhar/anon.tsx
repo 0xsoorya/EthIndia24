@@ -55,7 +55,12 @@ export default function Anon() {
           fieldsToReveal={["revealAgeAbove18", "revealGender", "revealPinCode", "revealState"]}
         />
       ) : (
-        <button onClick={handleLoginUsingAnonAadhaar}>verify proof and login</button>
+        <button
+          className="border border-slate-600 bg-primary px-3 py-2 rounded-lg font-bold"
+          onClick={handleLoginUsingAnonAadhaar}
+        >
+          verify proof and login
+        </button>
       )}
     </div>
   );
