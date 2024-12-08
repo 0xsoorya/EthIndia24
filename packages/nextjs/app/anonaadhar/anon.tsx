@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect } from "react";
 import { packGroth16Proof } from "@anon-aadhaar/core";
 import { LogInWithAnonAadhaar, useAnonAadhaar, useProver } from "@anon-aadhaar/react";
 import { AbiCoder } from "ethers";
@@ -23,9 +22,8 @@ export default function Anon() {
     functionName: "signUp",
     args: [keypair?.pubKey.asContractParam() as { x: bigint; y: bigint }, "0x", "0x"],
   });
-  useEffect(() => {
-    // if (anonAadhaar.status === "logged-in") {
-    console.log(anonAadhaar.status);
+
+  const handleLoginUsingAnonAadhaar = async () => {
     if (latestProof) {
       const packedGroth16Proof = packGroth16Proof(latestProof.proof.groth16Proof);
       const encodedData = AbiCoder.defaultAbiCoder().encode(
@@ -42,14 +40,23 @@ export default function Anon() {
       console.log(encodedData);
       writeAsync({ args: [keypair?.pubKey.asContractParam() as { x: bigint; y: bigint }, encodedData as any, "0x"] });
     }
-  }, [anonAadhaar, latestProof]);
+  };
+  // useEffect(() => {
+  //   // if (anonAadhaar.status === "logged-in") {
+  //   console.log(anonAadhaar.status);
+
+  // }, [latestProof]);
 
   return (
     <div className="flex w-full justify-center items-center align-middle">
-      <LogInWithAnonAadhaar
-        nullifierSeed={1234}
-        fieldsToReveal={["revealAgeAbove18", "revealGender", "revealPinCode", "revealState"]}
-      />
+      {!latestProof ? (
+        <LogInWithAnonAadhaar
+          nullifierSeed={1234}
+          fieldsToReveal={["revealAgeAbove18", "revealGender", "revealPinCode", "revealState"]}
+        />
+      ) : (
+        <button onClick={handleLoginUsingAnonAadhaar}>verify proof and login</button>
+      )}
     </div>
   );
 }

@@ -31,7 +31,9 @@ export const useScaffoldContractWrite = <
   blockConfirmations,
   ...writeConfig
 }: UseScaffoldWriteConfig<TContractName, TFunctionName>) => {
+  console.log(contractName);
   const { data: deployedContractData } = useDeployedContractInfo(contractName);
+  console.log(deployedContractData);
   const { chain } = useNetwork();
   const writeTx = useTransactor();
   const [isMining, setIsMining] = useState(false);
@@ -56,6 +58,11 @@ export const useScaffoldContractWrite = <
     value?: UseScaffoldWriteConfig<TContractName, TFunctionName>["value"];
   } & UpdatedArgs = {}) => {
     if (!deployedContractData) {
+      console.log(deployedContractData, {
+        args: newArgs,
+        value: newValue,
+        ...otherConfig,
+      });
       notification.error("Target Contract is not deployed, did you forget to run `yarn deploy`?");
       return;
     }

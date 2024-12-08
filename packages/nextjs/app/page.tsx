@@ -7,27 +7,10 @@ import Anon from "./anonaadhar/anon";
 import type { NextPage } from "next";
 import { useAuthUserOnly } from "~~/hooks/useAuthUserOnly";
 
+/* eslint-disable @next/next/no-img-element */
 const Home: NextPage = () => {
   useAuthUserOnly({ inverted: true });
-  // useEffect(() => {
-  //   const privateKey = localStorage.getItem("identity");
-
-  //   if (privateKey) {
-  //     const identity = Identity.import(privateKey);
-
-  //     console.log("Your Semaphore identity has been retrieved from the browser cache 👌🏽");
-  //   } else {
-  //     console.log("Create your Semaphore identity 👆🏽");
-  //   }
-  // });
-
-  // const createIdentity = useCallback(async () => {
-  //   const identity = new Identity();
-
-  //   localStorage.setItem("identity", identity.export());
-
-  //   console.log("Your new Semaphore identity has just been created 🎉");
-  // });
+  console.log("hello", new Date().getMilliseconds());
 
   return (
     <>
