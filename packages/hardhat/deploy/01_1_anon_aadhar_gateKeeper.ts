@@ -1,7 +1,7 @@
 import { HardhatRuntimeEnvironment } from "hardhat/types";
 import { DeployFunction } from "hardhat-deploy/types";
 //import { AnonAadhaarVerifierContractName } from "../constants";
-import { MockAnonAadhaar } from "../typechain-types/maci-contracts/contracts/mocks";
+//import { MockAnonAadhaar } from "../typechain-types/maci-contracts/contracts/mocks";
 //import type { MockAnonAadhaar } from "../typechain-types";
 
 const deployContracts: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
@@ -23,7 +23,7 @@ const deployContracts: DeployFunction = async function (hre: HardhatRuntimeEnvir
     //   autoMine: true,
     // });
 
-    const mockAnonAadhaar = await hre.deployments.deploy(MockAnonAadhaar, {
+    const mockAnonAadhaar = await hre.deployments.deploy("MockAnonAadhaar", {
       from: deployer,
       args: [],
       log: true,

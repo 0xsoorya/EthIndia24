@@ -1,14 +1,15 @@
-# Scaffold ETH 2 + MACI Voting Template
+# SLIENTVox
 
-Welcome to the Scaffold ETH 2 + MACI Voting Template! This template is a powerful starting point for developers aiming to build decentralized voting applications that prioritize privacy and resist collusion. Combining the rapid development environment of Scaffold ETH with the innovative Minimal Anti-Collusion Infrastructure (MACI), this template offers a robust foundation for creating secure and transparent voting systems on the Ethereum blockchain.
+Inspired by the voting systems in social media platforms like Instagram, where people vote for favorite influencers and creators, this project tackles issues like multiple fake account creations (e.g., using Gmail accounts) by leveraging advanced technologies such as Anonymous Aadhaar, Semaphore, and MACI contracts.
 
 ## Features
 
-- **Voter Registration**: Secure registration process through the MACI contract, enabling eligible voting.
-- **Poll Management**: Admins can easily create and manage polls, including question and options setup.
-- **Secure Voting**: Leverage MACI's privacy-preserving technology to ensure votes are cast anonymously and securely.
-- **Results Display**: Transparent display of poll results after the voting phase concludes.
-- **Admin Dashboard**: Comprehensive admin interface for poll oversight, including current status and results analytics.
+Voter Registration: Utilize Anonymous Aadhaar and Semaphore for secure voter registration.
+Collusion-Resistant Voting: MACI contracts ensure votes remain private and collusion-proof.
+Poll Management: Administrators can create and manage polls with flexible configurations.
+Secure Voting: Anonymous and secure voting process with cutting-edge cryptographic techniques.
+Results Display: View transparent and verifiable poll results post-voting, results are uploaded in walrus
+Admin Dashboard: A user-friendly dashboard for monitoring and managing polls.
 
 ## Requirements
 
@@ -89,20 +90,68 @@ The deployed contracts will be saved to the file `packages/hardhat/contractAddre
 
 The coordinator keys will be stored in the file `packages/hardhat/coordinatorKeyPair.json`.
 
-## Usage
+## Contracts are deployed to Base
 
-After setting up the project, you can:
+The initial voice credit proxy is deployed at 0xF7b71B3Ab8d3F264027fc73bFD3EBd47f2c59966
+**_ ConstantInitialVoiceCreditProxy _**
 
-- **Register**: Use the app's interface to register with the MACI contract and gain voting rights.
-- **Create Polls**: As an admin, you can create polls with custom questions and options.
-- **Vote**: Registered voters can participate in polls, utilizing MACI's secure voting mechanism.
-- **View Results**: Access poll outcomes after the voting phase ends.
-- **Admin Dashboard**: Monitor and manage ongoing polls, including viewing detailed poll status.
+Network: baseSepolia
+contract address: 0xF7b71B3Ab8d3F264027fc73bFD3EBd47f2c59966
 
-## Contributing
+**_ ConstantInitialVoiceCreditProxy _**
 
-Your contributions are welcome! Feel free to report issues, submit fixes, or suggest new features to enhance the project.
+The AnonAadhaarGatekeeper is deployed at 0xC6A6B9D209cb33308F02D460E78C2C532fDf40FB, with nullifier seed 1234
 
-## License
+**_ Verifier _**
 
-This project is licensed under the [MIT License](LICENSE).
+Network: baseSepolia
+contract address: 0x8f5fDf528b1B144575E4B0344895D4923eD7EEfF
+
+**_ PoseidonT3 _**
+
+Network: baseSepolia
+contract address: 0x19bfC336F4e1679ba241C82e2C7FAd45c2968291
+
+---
+
+**_ PoseidonT4 _**
+
+Network: baseSepolia
+contract address: 0x56A82dC664cCAc46b630541E92b61BdC69e44669
+
+**_ PoseidonT5 _**
+
+Network: baseSepolia
+contract address: 0x39A5d385BE1295535049D748e95F1e9ca537cDC7
+
+**_ PoseidonT6 _**
+
+Network: baseSepolia
+contract address: 0x3b49612278aDa563B98019B9154f3d9e4d1AAbc9
+
+**_ PollFactory _**
+
+Network: baseSepolia
+contract address: 0x5e231C3e7d2162F72FA5870847A1d76e63094e1b
+
+**_ MessageProcessorFactory _**
+
+Network: baseSepolia
+contract address: 0x6916EB149A497ed713F29450500CCCb3d3D0Ac55
+
+**_ TallyFactory _**
+
+Network: baseSepolia
+contract address: 0xe3fd829858be0ceDEDCa4D1FF2Def2D9577084E2
+
+**_ MACI _**
+
+Network: baseSepolia
+contract address: 0x4Ab59A215ceAEfaD243f51F94b1de37f6a50ed30
+
+**_ VkRegistry _**
+
+Network: baseSepolia
+contract address: 0x51b70079601Bb6B67E1e7151cB86c215db9a3576
+
+📝 Updated TypeScript contract definition file on ../nextjs/contracts/deployedContracts.ts

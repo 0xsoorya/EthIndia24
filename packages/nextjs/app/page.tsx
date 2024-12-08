@@ -36,17 +36,18 @@ const Home: NextPage = () => {
           <div className="flex-1">
             <h1 className="text-4xl font-bold text-center">Zero Knowledge, Maximum Voice</h1>
 
-            <p className="text-lg mt-5 text-justify">
+            <p className="text-lg mt-5  text-center">
               Empowering seamless and intuitive voting experiences with customizable poll options, real-time updates,
-              and fail-safe mechanisms—your perfect solution for modern engagement!
+              and fail-safe mechanisms
+              {/* <p>Your perfect solution for modern engagement!</p> */}
             </p>
-            <p>
+            {/* <p>
               Boost participation with visually appealing interfaces, robust accessibility features, and cross-platform
               compatibility. Track progress with live analytics and data visualizations, ensuring transparency and
               trust. Unlock advanced configurations like weighted votes, anonymous polling, and multi-language support
               to cater to diverse audiences. All backed by secure and scalable technology for unparalleled reliability
               in any scenario.
-            </p>
+            </p> */}
             <div className="text-center flex justify-center gap-2">
               {/* <button
                   className="border border-slate-600 bg-primary px-3 py-2 rounded-lg font-bold"

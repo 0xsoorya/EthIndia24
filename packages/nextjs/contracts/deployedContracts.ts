@@ -6,8 +6,370 @@ import { GenericContractsDeclaration } from "../utils/scaffold-eth/contract";
 
 const deployedContracts = {
   31337: {
+    AnonAadhaar: {
+      address: "0x547382C0D1b23f707918D3c83A77317B71Aa8470",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_verifier",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "_pubkeyHash",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
+        {
+          inputs: [],
+          name: "storedPublicKeyHash",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "verifier",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "nullifierSeed",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "nullifier",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "timestamp",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "signal",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256[4]",
+              name: "revealArray",
+              type: "uint256[4]",
+            },
+            {
+              internalType: "uint256[8]",
+              name: "groth16Proof",
+              type: "uint256[8]",
+            },
+          ],
+          name: "verifyAnonAadhaarProof",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {},
+      deploymentBlockNumber: 449,
+    },
+    AnonAadhaarGatekeeper: {
+      address: "0x7C8BaafA542c57fF9B2B90612bf8aB9E86e22C09",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_anonAadhaarVerifierAddr",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "_nullifierSeed",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "payable",
+          type: "constructor",
+        },
+        {
+          inputs: [],
+          name: "AlreadyRegistered",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "InvalidNullifierSeed",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "InvalidProof",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "InvalidSignal",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "OnlyMACI",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "owner",
+              type: "address",
+            },
+          ],
+          name: "OwnableInvalidOwner",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "OwnableUnauthorizedAccount",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "ZeroAddress",
+          type: "error",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "previousOwner",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "newOwner",
+              type: "address",
+            },
+          ],
+          name: "OwnershipTransferred",
+          type: "event",
+        },
+        {
+          inputs: [],
+          name: "anonAadhaarContract",
+          outputs: [
+            {
+              internalType: "contract IAnonAadhaar",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "getTrait",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "pure",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "maci",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "nullifierSeed",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "owner",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_user",
+              type: "address",
+            },
+            {
+              internalType: "bytes",
+              name: "_data",
+              type: "bytes",
+            },
+          ],
+          name: "register",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "registeredAadhaars",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "renounceOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_maci",
+              type: "address",
+            },
+          ],
+          name: "setMaciInstance",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "newOwner",
+              type: "address",
+            },
+          ],
+          name: "transferOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+      ],
+      deploymentBlockNumber: 451,
+    },
+    AnonVerifier: {
+      address: "0x22a9B82A6c3D2BFB68F324B2e8367f346Dd6f32a",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "uint256[2]",
+              name: "_pA",
+              type: "uint256[2]",
+            },
+            {
+              internalType: "uint256[2][2]",
+              name: "_pB",
+              type: "uint256[2][2]",
+            },
+            {
+              internalType: "uint256[2]",
+              name: "_pC",
+              type: "uint256[2]",
+            },
+            {
+              internalType: "uint256[9]",
+              name: "_pubSignals",
+              type: "uint256[9]",
+            },
+          ],
+          name: "verifyProof",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {},
+      deploymentBlockNumber: 447,
+    },
     ConstantInitialVoiceCreditProxy: {
-      address: "0x6C2d83262fF84cBaDb3e416D527403135D757892",
+      address: "0x1343248Cbd4e291C6979e70a138f4c774e902561",
       abi: [
         {
           inputs: [
@@ -45,65 +407,10 @@ const deployedContracts = {
           type: "function",
         },
       ],
-      deploymentBlockNumber: 265,
-    },
-    FreeForAllGatekeeper: {
-      address: "0xFD6F7A6a5c21A3f503EBaE7a473639974379c351",
-      abi: [
-        {
-          inputs: [],
-          stateMutability: "payable",
-          type: "constructor",
-        },
-        {
-          inputs: [],
-          name: "getTrait",
-          outputs: [
-            {
-              internalType: "string",
-              name: "",
-              type: "string",
-            },
-          ],
-          stateMutability: "pure",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "_address",
-              type: "address",
-            },
-            {
-              internalType: "bytes",
-              name: "_data",
-              type: "bytes",
-            },
-          ],
-          name: "register",
-          outputs: [],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "_maci",
-              type: "address",
-            },
-          ],
-          name: "setMaciInstance",
-          outputs: [],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-      ],
-      deploymentBlockNumber: 267,
+      deploymentBlockNumber: 445,
     },
     MACIWrapper: {
-      address: "0xefc1aB2475ACb7E60499Efb171D173be19928a05",
+      address: "0x512F7469BcC83089497506b5df64c6E246B39925",
       abi: [
         {
           inputs: [
@@ -1513,10 +1820,10 @@ const deployedContracts = {
         stateTreeDepth: "maci-contracts/contracts/MACI.sol",
         tallyFactory: "maci-contracts/contracts/MACI.sol",
       },
-      deploymentBlockNumber: 285,
+      deploymentBlockNumber: 469,
     },
     MessageProcessorFactory: {
-      address: "0x986aaa537b8cc170761FDAC6aC4fc7F9d8a20A8C",
+      address: "0xd9fEc8238711935D6c8d79Bef2B9546ef23FC046",
       abi: [
         {
           inputs: [],
@@ -1571,10 +1878,10 @@ const deployedContracts = {
           type: "function",
         },
       ],
-      deploymentBlockNumber: 281,
+      deploymentBlockNumber: 465,
     },
     PollFactory: {
-      address: "0x96F3Ce39Ad2BfDCf92C0F6E2C2CAbF83874660Fc",
+      address: "0x95775fD3Afb1F4072794CA4ddA27F2444BCf8Ac3",
       abi: [
         {
           inputs: [],
@@ -1668,10 +1975,10 @@ const deployedContracts = {
           type: "function",
         },
       ],
-      deploymentBlockNumber: 279,
+      deploymentBlockNumber: 463,
     },
     PoseidonT3: {
-      address: "0x5302E909d1e93e30F05B5D6Eea766363D14F9892",
+      address: "0x5e6CB7E728E1C320855587E1D9C6F7972ebdD6D5",
       abi: [
         {
           inputs: [
@@ -1693,10 +2000,10 @@ const deployedContracts = {
           type: "function",
         },
       ],
-      deploymentBlockNumber: 271,
+      deploymentBlockNumber: 455,
     },
     PoseidonT4: {
-      address: "0x0ed64d01D0B4B655E410EF1441dD677B695639E7",
+      address: "0x79E8AB29Ff79805025c9462a2f2F12e9A496f81d",
       abi: [
         {
           inputs: [
@@ -1718,10 +2025,10 @@ const deployedContracts = {
           type: "function",
         },
       ],
-      deploymentBlockNumber: 273,
+      deploymentBlockNumber: 457,
     },
     PoseidonT5: {
-      address: "0x4bf010f1b9beDA5450a8dD702ED602A104ff65EE",
+      address: "0x0Dd99d9f56A14E9D53b2DdC62D9f0bAbe806647A",
       abi: [
         {
           inputs: [
@@ -1743,10 +2050,10 @@ const deployedContracts = {
           type: "function",
         },
       ],
-      deploymentBlockNumber: 275,
+      deploymentBlockNumber: 459,
     },
     PoseidonT6: {
-      address: "0x40a42Baf86Fc821f972Ad2aC878729063CeEF403",
+      address: "0xeAd789bd8Ce8b9E94F5D0FCa99F8787c7e758817",
       abi: [
         {
           inputs: [
@@ -1768,10 +2075,10 @@ const deployedContracts = {
           type: "function",
         },
       ],
-      deploymentBlockNumber: 277,
+      deploymentBlockNumber: 461,
     },
     TallyFactory: {
-      address: "0xde2Bd2ffEA002b8E84ADeA96e5976aF664115E2c",
+      address: "0xd3FFD73C53F139cEBB80b6A524bE280955b3f4db",
       abi: [
         {
           inputs: [],
@@ -1831,10 +2138,10 @@ const deployedContracts = {
           type: "function",
         },
       ],
-      deploymentBlockNumber: 283,
+      deploymentBlockNumber: 467,
     },
     Verifier: {
-      address: "0xa6e99A4ED7498b3cdDCBB61a6A607a4925Faa1B7",
+      address: "0x0a17FabeA4633ce714F1Fa4a2dcA62C3bAc4758d",
       abi: [
         {
           inputs: [],
@@ -1991,10 +2298,10 @@ const deployedContracts = {
           type: "function",
         },
       ],
-      deploymentBlockNumber: 269,
+      deploymentBlockNumber: 453,
     },
     VkRegistry: {
-      address: "0xD49a0e9A4CD5979aE36840f542D2d7f02C4817Be",
+      address: "0xCBBe2A5c3A22BE749D5DDF24e9534f98951983e2",
       abi: [
         {
           inputs: [],
@@ -3254,7 +3561,7 @@ const deployedContracts = {
           type: "function",
         },
       ],
-      deploymentBlockNumber: 288,
+      deploymentBlockNumber: 472,
     },
   },
 } as const;

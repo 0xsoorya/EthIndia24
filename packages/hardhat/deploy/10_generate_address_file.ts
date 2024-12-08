@@ -1,15 +1,19 @@
 import { HardhatRuntimeEnvironment } from "hardhat/types";
 import { DeployFunction } from "hardhat-deploy/types";
 import { MACIWrapper } from "../typechain-types";
-import { GatekeeperContractName, InitialVoiceCreditProxyContractName } from "../constants";
+import { InitialVoiceCreditProxyContractName } from "../constants";
 import fs from "fs";
 
 const deployContracts: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   const { deployer } = await hre.getNamedAccounts();
+  const gatekeeper = await hre.ethers.getContract(
+    process.env.GATEKEEPER_CONTRACT_NAME || "FreeForAllGatekeeper",
+    deployer,
+  );
 
   const maci = await hre.ethers.getContract<MACIWrapper>("MACIWrapper", deployer);
   const initialVoiceCreditProxy = await hre.ethers.getContract(InitialVoiceCreditProxyContractName, deployer);
-  const gatekeeper = await hre.ethers.getContract(GatekeeperContractName, deployer);
+  //const gatekeeper = await hre.ethers.getContract(GatekeeperContractName, deployer);
   const verifier = await hre.ethers.getContract("Verifier", deployer);
   const pollFactory = await hre.ethers.getContract("PollFactory", deployer);
   const poseidonT3 = await hre.ethers.getContract("PoseidonT3", deployer);
